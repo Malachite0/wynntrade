@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Details - Wynncraft Item Filter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Wynncraft Item Filter</h1>
+            <div class="user-controls">
+                <button id="loginBtn" class="btn">Login</button>
+                <button id="registerBtn" class="btn">Register</button>
+                <button id="favoritesBtn" class="btn">Favorites</button>
+                <span id="userInfo" class="user-info"></span>
+            </div>
+        </div>
+
+        <div class="item-detail-container">
+            <div class="item-detail-header">
+                <button onclick="window.history.back()" class="btn back-btn">← Back</button>
+                <div class="item-actions">
+                    <button id="favoriteBtn" class="btn action-btn">
+                        <span class="star">★</span> Add to Favorites
+                    </button>
+                    <button id="tradeBtn" class="btn action-btn">
+                        <span class="trade-icon">🔄</span> Mark as For Trade
+                    </button>
+                </div>
+            </div>
+
+            <div class="item-detail-content">
+                <div class="item-main-info">
+                    <!-- Item details will be populated by JavaScript -->
+                </div>
+
+                <div class="item-user-lists">
+                    <div class="user-list favorites-list">
+                        <h3>Users who have this item in favorites</h3>
+                        <div class="user-list-content"></div>
+                    </div>
+                    <div class="user-list trade-list">
+                        <h3>Users offering this item for trade</h3>
+                        <div class="user-list-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="item-detail.js"></script>
+</body>
+</html> 

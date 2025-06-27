@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wynncraft Item Filter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Wynncraft Item Filter</h1>
+      <div class="user-controls">
+        <button id="loginBtn" class="btn">Login</button>
+        <button id="registerBtn" class="btn">Register</button>
+        <button id="favoritesBtn" class="btn">Favorites</button>
+        <span id="userInfo" class="user-info"></span>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Login</h2>
+        <form id="loginForm">
+          <input type="text" id="loginUsername" placeholder="Username" required>
+          <input type="password" id="loginPassword" placeholder="Password" required>
+          <button type="submit" class="btn">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Register</h2>
+        <form id="registerForm">
+          <input type="text" id="registerUsername" placeholder="Username" required>
+          <input type="password" id="registerPassword" placeholder="Password" required>
+          <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+          <button type="submit" class="btn">Register</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Favorites Modal -->
+    <div id="favoritesModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Favorite Items</h2>
+        <div id="favoritesContainer" class="items-grid"></div>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <!-- Sidebar Filters -->
+      <div class="sidebar">
+        <form id="filterForm" class="filter-form">
+          <div class="filter-sections-container">
+            <!-- Basic Filters -->
+            <div class="filter-section">
+              <div class="filter-header" onclick="toggleSection(this)">
+                <h2>Basic Filters</h2>
+                <span class="toggle-icon">▼</span>
+              </div>
+              <div class="filter-content">
+                <div class="filter-group">
+                  <h3>Type</h3>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="type" value="weapon"> Weapon</label>
+                    <label><input type="checkbox" name="type" value="armour"> Armour</label>
+                    <label><input type="checkbox" name="type" value="accessory"> Accessory</label>
+                    <label><input type="checkbox" name="type" value="tome"> Tome</label>
+                    <label><input type="checkbox" name="type" value="charm"> Charm</label>
+                    <label><input type="checkbox" name="type" value="tool"> Tool</label>
+                    <label><input type="checkbox" name="type" value="ingredient"> Ingredient</label>
+                    <label><input type="checkbox" name="type" value="material"> Material</label>
+                  </div>
+                </div>
+
+                <div class="filter-group">
+                  <h3>Rarity</h3>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="rarity" value="normal"> Normal</label>
+                    <label><input type="checkbox" name="rarity" value="unique"> Unique</label>
+                    <label><input type="checkbox" name="rarity" value="rare"> Rare</label>
+                    <label><input type="checkbox" name="rarity" value="legendary"> Legendary</label>
+                    <label><input type="checkbox" name="rarity" value="fabled"> Fabled</label>
+                    <label><input type="checkbox" name="rarity" value="set"> Set</label>
+                    <label><input type="checkbox" name="rarity" value="mythic"> Mythic</label>
+                  </div>
+                </div>
+
+                <div class="filter-group">
+                  <h3>Stars</h3>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="stars" value="0"> 0 Star</label>
+                    <label><input type="checkbox" name="stars" value="1"> 1 Star</label>
+                    <label><input type="checkbox" name="stars" value="2"> 2 Star</label>
+                    <label><input type="checkbox" name="stars" value="3"> 3 Star</label>
+                  </div>
+                </div>
+
+                <div class="filter-group">
+                  <h3>Level Range</h3>
+                  <div class="range-group">
+                    <input type="number" name="minLevel" placeholder="Min Level" min="0" max="106">
+                    <input type="number" name="maxLevel" placeholder="Max Level" min="0" max="106">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Advanced Filters -->
+            <div class="filter-section">
+              <div class="filter-header" onclick="toggleSection(this)">
+                <h2>Advanced Filters</h2>
+                <span class="toggle-icon">▼</span>
+              </div>
+              <div class="filter-content">
+                <div id="advanced-filters">
+                  <!-- Will be populated by JavaScript -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Elemental Filters -->
+            <div class="filter-section">
+              <div class="filter-header" onclick="toggleSection(this)">
+                <h2>Elemental Stats</h2>
+                <span class="toggle-icon">▼</span>
+              </div>
+              <div class="filter-content">
+                <div class="filter-group">
+                  <h3>Thunder Element</h3>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="thunder" value="dexterity"> Dexterity</label>
+                    <label><input type="checkbox" name="thunder" value="thunder_dmg_percent"> Thunder DMG %</label>
+                    <label><input type="checkbox" name="thunder" value="thunder_defence"> Thunder Defence</label>
+                    <label><input type="checkbox" name="thunder" value="raw_thunder_main_attack_dmg_percent"> Raw Thunder Main Attack DMG %</label>
+                    <label><input type="checkbox" name="thunder" value="raw_thunder_spell_dmg"> Raw Thunder Spell DMG</label>
+                    <label><input type="checkbox" name="thunder" value="raw_thunder_dmg"> Raw Thunder DMG</label>
+                  </div>
+                </div>
+
+                <div class="filter-group">
+                  <h3>Water Element</h3>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="water" value="intelligence"> Intelligence</label>
+                    <label><input type="checkbox" name="water" value="water_defence"> Water Defence</label>
+                    <label><input type="checkbox" name="water" value="water_dmg_percent"> Water DMG %</label>
+                    <label><input type="checkbox" name="water" value="raw_water_spell_dmg"> Raw Water Spell DMG</label>
+                    <label><input type="checkbox" name="water" value="water_spell_dmg_percent"> Water Spell DMG %</label>
+                    <label><input type="checkbox" name="water" value="raw_water_dmg"> Raw Water DMG</label>
+                  </div>
+                </div>
+
+                <div class="filter-group">
+                  <h3>Fire Element</h3>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="fire" value="defence"> Defence</label>
+                    <label><input type="checkbox" name="fire" value="fire_dmg_percent"> Fire DMG %</label>
+                    <label><input type="checkbox" name="fire" value="fire_defence"> Fire Defence</label>
+                    <label><input type="checkbox" name="fire" value="raw_fire_spell_dmg"> Raw Fire Spell DMG</label>
+                    <label><input type="checkbox" name="fire" value="raw_fire_main_attack_dmg"> Raw Fire Main Attack DMG</label>
+                    <label><input type="checkbox" name="fire" value="fire_spell_dmg_percent"> Fire Spell DMG %</label>
+                  </div>
+                </div>
+
+                <div class="filter-group">
+                  <h3>Air Element</h3>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="air" value="agility"> Agility</label>
+                    <label><input type="checkbox" name="air" value="air_dmg_percent"> Air DMG %</label>
+                    <label><input type="checkbox" name="air" value="air_defence"> Air Defence</label>
+                    <label><input type="checkbox" name="air" value="raw_air_spell_dmg"> Raw Air Spell DMG</label>
+                    <label><input type="checkbox" name="air" value="raw_air_main_attack_dmg"> Raw Air Main Attack DMG</label>
+                    <label><input type="checkbox" name="air" value="air_main_attack_dmg_percent"> Air Main Attack DMG %</label>
+                    <label><input type="checkbox" name="air" value="air_spell_dmg_percent"> Air Spell DMG %</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Combat Stats -->
+            <div class="filter-section">
+              <div class="filter-header" onclick="toggleSection(this)">
+                <h2>Combat Stats</h2>
+                <span class="toggle-icon">▼</span>
+              </div>
+              <div class="filter-content">
+                <div class="filter-group">
+                  <h3>Main Attack</h3>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="main_attack" value="main_attack_dmg_percent"> Main Attack DMG %</label>
+                    <label><input type="checkbox" name="main_attack" value="raw_attack_speed"> Raw Attack Speed</label>
+                    <label><input type="checkbox" name="main_attack" value="raw_main_attack_dmg"> Raw Main Attack DMG</label>
+                    <label><input type="checkbox" name="main_attack" value="poison"> Poison</label>
+                  </div>
+                </div>
+
+                <div class="filter-group">
+                  <h3>Spells and Mana</h3>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="spells" value="spell_dmg_percent"> Spell DMG %</label>
+                    <label><input type="checkbox" name="spells" value="mana_steal"> Mana Steal</label>
+                    <label><input type="checkbox" name="spells" value="mana_regen"> Mana Regen</label>
+                    <label><input type="checkbox" name="spells" value="raw_spell_dmg"> Raw Spell DMG</label>
+                    <label><input type="checkbox" name="spells" value="raw_1st_spell_cost"> Raw 1st Spell Cost</label>
+                    <label><input type="checkbox" name="spells" value="raw_2nd_spell_cost"> Raw 2nd Spell Cost</label>
+                    <label><input type="checkbox" name="spells" value="raw_3rd_spell_cost"> Raw 3rd Spell Cost</label>
+                    <label><input type="checkbox" name="spells" value="raw_4th_spell_cost"> Raw 4th Spell Cost</label>
+                    <label><input type="checkbox" name="spells" value="1st_spell_cost_percent"> 1st Spell Cost %</label>
+                    <label><input type="checkbox" name="spells" value="2nd_spell_cost_percent"> 2nd Spell Cost %</label>
+                    <label><input type="checkbox" name="spells" value="3rd_spell_cost_percent"> 3rd Spell Cost %</label>
+                    <label><input type="checkbox" name="spells" value="4th_spell_cost_percent"> 4th Spell Cost %</label>
+                    <label><input type="checkbox" name="spells" value="raw_neutral_spell_dmg"> Raw Neutral Spell DMG</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Utility Stats -->
+            <div class="filter-section">
+              <div class="filter-header" onclick="toggleSection(this)">
+                <h2>Utility Stats</h2>
+                <span class="toggle-icon">▼</span>
+              </div>
+              <div class="filter-content">
+                <div class="filter-group">
+                  <h3>Health</h3>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="health" value="health_regen_raw"> Health Regen Raw</label>
+                    <label><input type="checkbox" name="health" value="life_steal"> Life Steal</label>
+                    <label><input type="checkbox" name="health" value="health"> Health</label>
+                    <label><input type="checkbox" name="health" value="health_regen_percent"> Health Regen %</label>
+                  </div>
+                </div>
+
+                <div class="filter-group">
+                  <h3>Mobility</h3>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="mobility" value="walkspeed"> Walkspeed</label>
+                    <label><input type="checkbox" name="mobility" value="sprint_regen"> Sprint Regen</label>
+                    <label><input type="checkbox" name="mobility" value="jump_height"> Jump Height</label>
+                    <label><input type="checkbox" name="mobility" value="sprint"> Sprint</label>
+                  </div>
+                </div>
+
+                <div class="filter-group">
+                  <h3>XP & Loot</h3>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="xp_loot" value="loot_bonus"> Loot Bonus</label>
+                    <label><input type="checkbox" name="xp_loot" value="xp_bonus"> XP Bonus</label>
+                    <label><input type="checkbox" name="xp_loot" value="stealing"> Stealing</label>
+                    <label><input type="checkbox" name="xp_loot" value="loot_quality"> Loot Quality</label>
+                    <label><input type="checkbox" name="xp_loot" value="gather_xp_bonus"> Gather XP Bonus</label>
+                    <label><input type="checkbox" name="xp_loot" value="gather_speed"> Gather Speed</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="search-button">Search</button>
+        </form>
+      </div>
+
+      <!-- Results Area -->
+      <div class="results-area">
+        <div id="itemsContainer" class="items-grid"></div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
