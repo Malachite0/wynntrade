@@ -1,5 +1,6 @@
 # wynntrade
 concept/prototype of wynncraft trading app
+this is a prototype and passwords get saved unsave (not linked to databse) this is because its a prototype/concept
 
 ## Installation
 
