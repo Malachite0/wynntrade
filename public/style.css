@@ -6,6 +6,15 @@
   --ice-light: #f8f9fa;
   --sidebar-width: 350px;
 }
+h2{
+color: black;
+}
+h3{
+  color: black;
+}
+p{
+  color: black;
+}
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
